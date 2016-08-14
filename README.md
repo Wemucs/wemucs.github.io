@@ -1,4 +1,4 @@
-# [Wemucs.com](//wemucs.com)
+# [Wemucs.com](http://wemucs.com)
 
 New platform for our blog, based on Jekyll and Github pages.
 
