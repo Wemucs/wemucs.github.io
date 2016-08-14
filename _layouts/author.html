@@ -2,6 +2,8 @@
 layout: default
 ---
 
+{% assign posts = site.posts | where: "author", page.slug %}
+
 <section class="author-profile inner">
     {% if page.image %}
     <figure class="author-image">
@@ -14,14 +16,19 @@ layout: default
     <div class="author-meta">
         {% if page.location %}<span class="author-location icon-location">{{ page.location }}</span>{% endif %}
         {% if page.website %}<span class="author-link fa fa-link"><a href="{{ page.website }}">{{ page.website }}</a></span>{% endif %}
-        <span class="author-stats"><i class="fa fa-bar-chart"></i> {{plural ../pagination.total empty='No posts' singular='% post' plural='% posts'}}</span>
+        <span class="author-stats"><i class="fa fa-bar-chart"></i> {{ posts.size }} post{% if posts.size != 1 %}s{% endif %}</span>
     </div>
 </section>
 
 <main id="content" class="content clearfix" role="main">
     <div id="articles">
-      {% assign posts = site.posts | where: "author", page.slug %}
-      {% include articles.html posts=posts %}
+
+
+      {% if posts.size > 0 %}
+        {% include articles.html posts=posts %}
+      {% else %}
+        <p>Sadly, this author has not posted anything yet.</p>
+      {% endif %}
     </div>
 
     {% include sidebar.html %}
