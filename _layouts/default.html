@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %} &ndash; {{ site.name }}</title>
+    <title>{% if page.title %}{{ page.title }} - {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
     <meta name="description" content="{{ site.description }}" />
 
     <meta name="HandheldFriendly" content="True" />
@@ -23,10 +23,11 @@
     <header id="header">
         <nav class="header-nav">
 
-          <div class="blog-title"><a href="{{ site.url }}">{{ site.title }}</a></div>
+          <div class="blog-title"><a href="/">{{ site.title }}</a></div>
 
             <div class="taglist-wrapper clearfix">
                 <ul id="taglist" class="taglist">
+                    <li><a href="/">Home</a></li>
                 {% for category in site.my_categories %}
                     <li><a href="{{ category.url }}">{{ category.name }}</a></li>
                 {% endfor %}

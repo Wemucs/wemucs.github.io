@@ -21,13 +21,13 @@ $(function() {
       }
       $parent.append($a);
     }
-    
+
     $parent.removeClass('loading');
   }
 
   $.ajax({
     dataType: 'xml',
-    url: '/rss',
+    url: '/feed.xml',
     type: 'GET'
   }).success(renderSite);
 
