@@ -1,0 +1,39 @@
+<div id="sidebar">
+  <div class="box sidebox about">
+    <div class="sidebox-title">A propos</div>
+    <div class="sidebox-content">
+        <p>{{ site.description }}</p>
+        <h6>Les auteurs</h6>
+          <ul class="authors-thumbnails clearfix">
+            {% assign sorted_authors = site.my_authors | sort: 'slug' %}
+            {% for author in sorted_authors %}
+                <li>
+                    <figure class="author-image">
+                        <a href="{{ author.url }}">
+                          <span class="img" style="background-image: url({{ author.image }})"><span class="hidden">{{ author.name }}'s Picture</span></span>
+                        </a>
+                    </figure>
+                </li>
+            {% endfor %}
+          </ul>
+    </div>
+  </div>
+
+  <!--Change the links to your sites-->
+  <div class="sidebox box social clearfix">
+    <ul>
+      <a href="/feed.xml" target="_blank" class="social-item rss"><li><i class="fa fa-rss"></i></li></a>
+      <a href="http://github.com/wemucs" target="_blank" class="social-item github"><li><i class="fa fa-github"></i></li></a>
+    </ul>
+  </div>
+
+<!-- To be activated when more stories will be shared!
+<div class="sidebox box latest-articles">
+    <div class="sidebox-title">Nos meilleures sections</div>
+    <div class="sidebox-content">
+          <a href="/">Derniers articles</a>
+          <a href="/tag/getting-started">Getting started</a>
+    </div>
+</div>
+-->
+</div>

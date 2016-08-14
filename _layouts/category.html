@@ -1,0 +1,18 @@
+---
+layout: default
+---
+
+<main id="content" class="content clearfix" role="main">
+
+    <div id="articles">
+        <h1><i class="fa fa-tag"></i> {{ page.name }}</h1>
+        <p>{{ page.description }}</p>
+
+        {% assign posts = site.categories[page.slug] %}
+        {% include articles.html posts=posts %}
+
+    </div>
+
+    {% include sidebar.html %}
+
+</main>

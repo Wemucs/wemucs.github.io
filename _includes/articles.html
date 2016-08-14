@@ -1,0 +1,23 @@
+{% assign posts = include.posts %}
+
+{% for post in posts %}
+<a class="article-link" href="{{ post.url }}">
+    <article class="box is-link post">
+
+        {% if post.image %}
+            <section class="post-image" style="background-image:url({{ post.image }})"></section>
+        {% endif %}
+
+        <header class="post-header">
+            <h2 class="post-title">{{ post.title }}</h2>
+        </header>
+        <section class="post-excerpt">
+            <p>{{ post.excerpt }}</p>
+        </section>
+
+        <footer class="post-meta">
+            <time class="post-date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date_to_long_string }}</time>
+        </footer>
+    </article>
+</a>
+{% endfor %}

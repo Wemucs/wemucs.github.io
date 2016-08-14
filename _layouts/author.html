@@ -1,0 +1,28 @@
+---
+layout: default
+---
+
+<section class="author-profile inner">
+    {% if page.image %}
+    <figure class="author-image">
+        <div class="img" style="background-image: url({{ page.image }})"><span class="hidden">{{ page.name }}'s Picture</span></div>
+    </figure>
+    {% endif %}
+
+    <h1 class="author-title">{{ page.name }}</h1>
+    <h2 class="author-bio">{{ page.bio }}</h2>
+    <div class="author-meta">
+        {% if page.location %}<span class="author-location icon-location">{{ page.location }}</span>{% endif %}
+        {% if page.website %}<span class="author-link fa fa-link"><a href="{{ page.website }}">{{ page.website }}</a></span>{% endif %}
+        <span class="author-stats"><i class="fa fa-bar-chart"></i> {{plural ../pagination.total empty='No posts' singular='% post' plural='% posts'}}</span>
+    </div>
+</section>
+
+<main id="content" class="content clearfix" role="main">
+    <div id="articles">
+      {% assign posts = site.posts | where: "author", page.slug %}
+      {% include articles.html posts=posts %}
+    </div>
+
+    {% include sidebar.html %}
+</main>

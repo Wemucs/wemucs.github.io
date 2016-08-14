@@ -1,0 +1,106 @@
+---
+layout: default
+body_class: post-template
+---
+
+{% assign post = page %}
+
+<main id="content" class="content" role="main">
+    <div id="article" class="box">
+
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">{{ post.title }}</h1>
+                <section class="post-meta">
+                    <time class="post-date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date_to_long_string }}</time>
+                    <span class="author">par {{ post.author }}</span>
+                </section>
+            </header>
+
+            <section class="post-content">
+                {{ content }}
+            </section>
+
+            <footer class="post-footer">
+
+            {{! Everything inside the #author tags pulls data from the author }}
+            {% assign authors_data = site.my_authors | where: "slug", post.author %}
+
+            {{% if authors_data %}}
+                {% assign current_author = authors_data[0] %}
+
+                {{% if current_author.image %}}
+                <figure class="author-image">
+                    <a class="img" href="{{ current_author.url }}" style="background-image: url({{ current_author.image }})"><span class="hidden">{{ current_author.name }}'s Picture</span></a>
+                </figure>
+                {{% endif %}}
+
+                <section class="author">
+                    <h4><a href="{{ current_author.url }}">{{ current_author.name }}</a></h4>
+
+                    {{% if current_author.bio %}}
+                        <p>{{ current_author.bio }}</p>
+                    {{% else %}}
+                        <p>Read <a href="{{ current_author.url }}">more posts</a> by this author.</p>
+                    {{% endif %}}
+                    <div class="author-meta">
+                        {{% if current_author.location %}}<span class="author-location icon-location">{{ current_author.location }}</span>{{% endif %}}
+                        {{% if current_author.website %}}<span class="author-link icon-link"><a href="{{ current_author.website }}">{{ current_author.website }}</a></span>{{% endif %}}
+                    </div>
+                </section>
+
+            {{% endif %}}
+
+                <section class="share">
+                    <h4>Partage</h4>
+                    <a class="fa fa-twitter" href="https://twitter.com/share?text={{encode title}}&amp;url={{url absolute="true"}}"
+                        onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                        <span class="hidden">Twitter</span>
+                    </a>
+                    <a class="fa fa-facebook" href="https://www.facebook.com/sharer/sharer.php?u={{url absolute="true"}}"
+                        onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                        <span class="hidden">Facebook</span>
+                    </a>
+                    <a class="fa fa-google" href="https://plus.google.com/share?url={{url absolute="true"}}"
+                       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                        <span class="hidden">Google+</span>
+                    </a>
+                </section>
+
+            </footer>
+        </article>
+    </div>
+    {% if post.categories.size > 0 %}
+    <div class="box">
+        <div class="post">
+            <h4>Des articles géniaux vous attendent dans les catégories liées :</h4>
+
+            <span>
+                {% for post_category in post.categories %}
+                    {% assign category = site.my_categories | where: "slug", post_category %}
+                    <a href="{{ category[0].url }}">{{ category[0].name }}</a>{% if forloop.last == false %}, {% endif %}
+                {% endfor %}
+            </span>
+        </div>
+    </div>
+    {% endif %}
+    <div class="box">
+        <div class="post">
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                var disqus_shortname = 'wemucs'; // required: replace example with your forum shortname
+                var disqus_identifier = '{{ post.id }}';
+
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </div>
+    </div>
+</main>
